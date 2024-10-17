@@ -1,9 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
 import "./LandingPage.css";
-const LandingPage = () => {
+import Footer from "../../components/Footer";
 
+const LandingPage = () => {
+    const navigate = useNavigate(); // Initialize navigate
+
+    const handleOrderClick = () => {
+        navigate('/menu'); // Navigate to the My Order page
+    };
 
     return (
         <main className="landingPage">
@@ -11,7 +16,7 @@ const LandingPage = () => {
                 <div className="heroContent">
                     <h1>Foodie Haven</h1>
                     <p>Your gateway to delicious culinary experiences.</p>
-                    <button className="orderButton" onClick={'/myorder'}>Order Now</button>
+                    <button className="orderButton" onClick={handleOrderClick}>Order Now</button>
                 </div>
             </div>
 
@@ -33,7 +38,6 @@ const LandingPage = () => {
                 </div>
             </section>
 
-
             <section id="about" className="about">
                 <h2>About Us</h2>
                 <p>
@@ -41,7 +45,7 @@ const LandingPage = () => {
                 </p>
             </section>
 
-
+            <Footer />
         </main>
     );
 };
