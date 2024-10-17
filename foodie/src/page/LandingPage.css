@@ -1,0 +1,186 @@
+/* Base styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.landingPage {
+    height: 100vh;
+    background-color: #f8f9fa;
+    /* Light background */
+}
+
+/* Hero section */
+.hero {
+    background: url('C:\Users\DELL\OneDrive\Desktop\Foodies\foodie\public\494243.jpg') no-repeat center center/cover;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.heroContent {
+    background: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background for text */
+    padding: 2rem;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.heroContent h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.heroContent p {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.orderButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #ff5722;
+    /* Button color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.orderButton:hover {
+    background-color: #e64a19;
+    /* Darker shade on hover */
+}
+
+/* Services section */
+.services {
+    padding: 3rem 1rem;
+    background-color: #212529;
+    /* Dark background */
+    color: #ffffff;
+    /* White text */
+    text-align: center;
+}
+
+.servicesList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.serviceCard {
+    background-color: #ffffff;
+    /* White cards */
+    color: #000;
+    /* Black text */
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    flex: 1 1 300px;
+    /* Responsive card sizing */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.serviceCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* About section */
+.about {
+    padding: 3rem 1rem;
+    background-color: #f5f5f5;
+    /* Light background */
+    text-align: center;
+}
+
+.about h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.about p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    /* Centered text */
+}
+
+/* Footer */
+.footer {
+    padding: 2rem;
+    background-color: #212529;
+    /* Dark background */
+    color: #ffffff;
+    /* White text */
+    text-align: center;
+}
+
+.socialLinks {
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+}
+
+.socialLinks a {
+    margin: 0 1rem;
+    color: #ffffff;
+    /* White text */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.socialLinks a:hover {
+    color: #ffeb3b;
+    /* Yellow on hover */
+}
+
+/* Responsive Styles */
+@media (min-width: 768px) {
+    .heroContent {
+        padding: 3rem;
+    }
+
+    .heroContent h1 {
+        font-size: 3rem;
+    }
+
+    .heroContent p {
+        font-size: 1.5rem;
+    }
+
+    .services {
+        padding: 3rem 2rem;
+    }
+
+    .serviceCard {
+        margin: 1.5rem;
+    }
+
+    .about {
+        padding: 3rem 2rem;
+    }
+
+    .about h2 {
+        font-size: 2.5rem;
+    }
+
+    .about p {
+        font-size: 1.5rem;
+    }
+
+    .footer {
+        padding: 2rem;
+    }
+
+    .socialLinks a {
+        margin: 0 1rem;
+        font-size: 1.2rem;
+    }
+}
