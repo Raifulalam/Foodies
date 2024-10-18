@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css'; // Import the CSS for styling
+import './Signup.css'; // Import the CSS for styling
 
 function LoginComponent() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('')
     const navigate = useNavigate();
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
     };
+    const handleNameChange = (event) => {
+        setName(event.target.value);
+    }
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -22,16 +26,33 @@ function LoginComponent() {
         console.log('Password:', password);
         // Reset form after submission if needed
     };
-    const handleSignup = () => {
-        navigate('/signup')
+    const handleLogin = () => {
+        navigate('/login')
     }
 
     return (
         <div className="login-container">
+            <div className="sidebar">
+                <h2>Already have an account?</h2>
+                <p>Let's get you started!</p>
+                <button className="get-started-button" onClick={handleLogin}>Log in</button>
+            </div>
             <div className="login-form">
-                <h2>Log in</h2>
-                <p>Welcome back! Please enter your details.</p>
+                <h2>Sign Up</h2>
+                <p>Please enter your details.</p>
                 <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="email">Full Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={name}
+                            onChange={handleNameChange}
+                            required
+                            placeholder="Enter your email"
+                        />
+                    </div>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
                         <input
@@ -56,21 +77,13 @@ function LoginComponent() {
                             placeholder="Enter your password"
                         />
                     </div>
-                    <div className="remember-me">
-                        <input type="checkbox" id="remember-me" name="remember-me" />
-                        <label htmlFor="remember-me">Remember me for 14 days</label>
-                    </div>
+
                     <div className="form-group">
-                        <button type="submit" className="submit-button">Sign in</button>
-                        <a href="#" className="forgot-password">Forgot password?</a>
+                        <button type="submit" className="submit-button">Register</button>
                     </div>
                 </form>
             </div>
-            <div className="sidebar">
-                <h2>Craving Something?</h2>
-                <p>Let's get you started!</p>
-                <button className="get-started-button" onClick={handleSignup}>Get Started</button>
-            </div>
+
         </div>
     );
 }
