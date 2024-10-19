@@ -1,9 +1,10 @@
 .menu-page {
 
     padding: 0px 0px;
-
+    background-color: #ff5722;
 
 }
+
 
 .search-bar {
     position: absolute;
@@ -63,7 +64,7 @@
 
 .slider {
     position: relative;
-    margin: 20px 0;
+
 }
 
 .slider-image {

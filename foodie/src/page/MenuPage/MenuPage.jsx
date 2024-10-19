@@ -85,7 +85,7 @@ const MenuPage = () => {
                             <img src={item.image} alt={item.name} className="menu-item-image" />
                             <h2>{item.name}</h2>
                             <p>{item.description}</p>
-                            <span className="price">{item.price}</span>
+
                             <select name="" id="">
                                 <option value="one">1</option>
                                 <option value="one">1</option>
@@ -98,6 +98,7 @@ const MenuPage = () => {
                                 <option value="one">1</option>
                                 <option value="one">1</option>
                             </select>
+                            <span className="price">{item.price}</span>
                         </div>
                     ))
                 ) : (

@@ -8,6 +8,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MenuPage from './page/MenuPage/MenuPage';
 import SignUp from './page/SignUp/Signup';
+// import '../node_modules/bootstrap-dark-5/dist/css/bootstrap-dark.min.css';
+
 const App = () => {
   return (
     <Router>

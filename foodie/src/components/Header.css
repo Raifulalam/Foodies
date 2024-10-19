@@ -75,15 +75,18 @@
         right: 00;
         background-color: #ff7043;
         flex-direction: column;
-
+        z-index: 222;
         align-items: flex-start;
         transform: translateX(100%);
-        transition: transform 0.3s ease;
+
+        display: none;
 
     }
 
     .nav.open {
         transform: translateY(0);
+        display: block;
+        transition: transform 0.3s ease;
     }
 
     .nav ul {
@@ -94,7 +97,7 @@
     }
 
     .nav li {
-        width: 100%;
+
         padding: 10px 20px;
     }
 
