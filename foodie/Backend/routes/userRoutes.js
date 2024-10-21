@@ -4,7 +4,7 @@ const User = require('../models/User.models'); // Fixed spelling from 'modles' t
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const jwtSecret = "raifulalammohammedfromnepalbirgunj"
 
 router.post('/createUser',
     [
@@ -54,11 +54,18 @@ router.post('/loginUser',
             if (!user) {
                 return res.status(401).json({ message: 'Invalid email or password' });
             }
-            if (req.body.password !== user.password) {
+            const comparePassword = bcrypt.compare(req.body.password, user.password)
+            if (!comparePassword) {
                 return res.status(401).json({ message: 'Try using your correct password' });
 
             }
-            return res.json({ success: true })
+            const data = {
+                id: user._id,
+                name: user.name,
+
+            }
+            const authToken = jwt.sign(data, jwtSecret)
+            return res.json({ success: true, authToken: authToken })
         } catch (error) {
             console.error(error);
             res.status(500).json({ sucess: false });

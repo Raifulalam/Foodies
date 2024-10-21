@@ -37,21 +37,33 @@ function LoginComponent() {
 
             if (!response.ok) {
                 throw new Error(data.message || 'Something went wrong!');
+
+            }
+            if (data.success) {
+
+                localStorage.setItem("authToken", data.authToken)
+                console.log(localStorage.getItem("authToken"))
+                setSuccess('Login Successful');
+                setLoading(false);
+                // navigate('/menu');
             }
 
-            setSuccess('Welcome to HUU Foodie!');
-            setTimeout(() => {
-                navigate('/', { state: { email } }); // Redirect after 2 seconds
-            }, 2000);
+
+
+
+            // setTimeout(() => {
+            //     navigate('/', { state: { email } }); // Redirect after 2 seconds
+            // }, 2000);
 
             // Optionally, reset form fields
-            setEmail('');
-            setPassword('');
+            //     setEmail('');
+            //     setPassword('');
         } catch (err) {
             setError(err.message);
-        } finally {
-            setLoading(false); // Reset loading state
         }
+        // finally {
+        //     setLoading(false); // Reset loading state
+        // }
     };
 
     const handleSignup = () => {
