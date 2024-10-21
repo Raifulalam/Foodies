@@ -124,3 +124,20 @@ body {
         /* Add margin to separate from the form */
     }
 }
+
+.error-message {
+    display: inline;
+    margin: 0%;
+    background-color: red;
+    color: white;
+    padding: 4px 8px;
+
+}
+
+.success-message {
+    background-color: green;
+    display: inline;
+    margin: 0%;
+    color: white;
+    padding: 4px 8px;
+}

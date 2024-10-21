@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const navigate = useNavigate();
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+    const handleLogout = () => {
+        navigate('/login')
+
+    }
 
     return (
         <header className="header">
@@ -24,7 +30,7 @@ const Header = () => {
                     <li><Link to="/signup">Sign Up</Link></li>
                     <li><Link to="/cart">Cart</Link></li>
                     <li><Link to="/myorder">My Order</Link></li>
-                    <li><Link to="/logout">Logout</Link></li>
+                    <li><Link to="/login" onClick={handleLogout}>Logout</Link></li>
                 </ul>
             </nav>
             <div

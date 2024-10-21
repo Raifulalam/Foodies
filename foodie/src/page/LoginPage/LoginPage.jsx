@@ -6,6 +6,9 @@ function LoginComponent() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false); // Loading state
 
     const handleEmailChange = (event) => {
         setEmail(event.target.value);
@@ -15,22 +18,52 @@ function LoginComponent() {
         setPassword(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Handle form submission here, e.g., send login request to server
-        console.log('Email:', email);
-        console.log('Password:', password);
-        // Reset form after submission if needed
+        setError('');
+        setSuccess('');
+        setLoading(true); // Set loading to true
+
+        try {
+            const response = await fetch("http://localhost:5000/api/loginUser", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Something went wrong!');
+            }
+
+            setSuccess('Welcome to HUU Foodie!');
+            setTimeout(() => {
+                navigate('/', { state: { email } }); // Redirect after 2 seconds
+            }, 2000);
+
+            // Optionally, reset form fields
+            setEmail('');
+            setPassword('');
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false); // Reset loading state
+        }
     };
+
     const handleSignup = () => {
-        navigate('/signup')
-    }
+        navigate('/signup');
+    };
 
     return (
         <div className="login-container">
             <div className="login-form">
                 <h2>Log in</h2>
                 <p>Welcome back! Please enter your details.</p>
+
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="email">Email</label>
@@ -61,10 +94,15 @@ function LoginComponent() {
                         <label htmlFor="remember-me">Remember me for 14 days</label>
                     </div>
                     <div className="form-group">
-                        <button type="submit" className="submit-button">Sign in</button>
+                        <button type="submit" className="submit-button" disabled={loading}>
+                            {loading ? 'Signing in...' : 'Sign in'}
+                        </button>
                         <a href="#" className="forgot-password">Forgot password?</a>
                     </div>
+                    {error && <p className="error-message" aria-live="assertive">{error}</p>}
+                    {success && <p className="success-message" aria-live="polite">{success}</p>}
                 </form>
+
             </div>
             <div className="sidebar">
                 <h2>Craving Something?</h2>

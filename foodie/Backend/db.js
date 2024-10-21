@@ -1,11 +1,28 @@
-const mongoose = require('mongoose');
-// const mongoURI = 'mongodb+srv://raifulalam0123:w6uTAm2A0cozwABk@foodie.2xijm.mongodb.net/Foodie?retryWrites=true&w=majority&appName=Foodie';
+const { MongoClient } = require('mongodb');
+const mongoURI = 'mongodb://localhost:27017/foodie';
+
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/foodie', { useNewUrlParser: true, useUnifiedTopology: true });
+        const client = new MongoClient(mongoURI);
+        await client.connect();
         console.log('MongoDB connected');
+
+        const db = client.db(); // Use the default database from the URI
+        const foodItemsCollection = db.collection('fooditems');
+
+        // Fetch data from the collection
+        const data = await foodItemsCollection.find().toArray();
+        if (data.length === 0) {
+            console.log('No data found in fooditems collection');
+        } else {
+            // console.log('Fetched data:', data);
+        }
+
+        // Close the connection
+        // await client.close();
     } catch (err) {
         console.error('Error connecting to MongoDB:', err);
     }
 };
+
 module.exports = connectDB;
