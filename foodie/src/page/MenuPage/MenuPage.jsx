@@ -1,51 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './MenuPage.css';
 
 const MenuPage = () => {
+    const [foodCat, setFoodCat] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [foodList, setFoodList] = useState([]);
+    const [loading, setLoading] = useState(true); // Loading state
+    const [error, setError] = useState(''); // Error state
 
     const images = [
         'pizza.jpg',
         'desert.jpg',
         'pizza.jpg',
         '494243.jpg',
-
     ];
 
-    const menuItems = [
-        {
-            id: 1,
-            name: 'Margherita Pizza',
-            description: 'Classic pizza with fresh tomatoes, mozzarella cheese, and basil.',
-            price: '$12.99',
-            image: 'pizza.jpg',
-        },
-        {
-            id: 2,
-            name: 'Caesar Salad',
-            description: 'Crisp romaine lettuce, croutons, and Caesar dressing.',
-            price: '$8.99',
-            image: 'desert.jpg',
-        },
-        {
-            id: 3,
-            name: 'Spaghetti Carbonara',
-            description: 'Pasta with a creamy sauce made from eggs, cheese, pancetta, and pepper.',
-            price: '$14.99',
-            image: '494243.jpg',
-        },
-        {
-            id: 4,
-            name: 'Tiramisu',
-            description: 'Coffee-flavored Italian dessert with layers of mascarpone cheese.',
-            price: '$6.99',
-            image: 'desert.jpg',
-        },
-    ];
+    const menuItems = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/foodList', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await response.json();
+            setFoodList(data[0]);
+            setFoodCat(data[1]);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false); // Set loading to false
+        }
+    };
 
-    const filteredItems = menuItems.filter(item =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    useEffect(() => {
+        menuItems();
+    }, []);
+
+    const filteredItems = foodList.filter(item =>
+        item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const nextSlide = () => {
@@ -53,21 +50,19 @@ const MenuPage = () => {
     };
 
     const prevSlide = () => {
-        setCurrentSlide((prevSlide) =>
-            (prevSlide - 1 + images.length) % images.length
-        );
+        setCurrentSlide((prevSlide) => (prevSlide - 1 + images.length) % images.length);
     };
+
+    if (loading) {
+        return <p>Loading...</p>; // Loading message
+    }
 
     return (
         <div className="menu-page">
             <div className="slider">
-                <button onClick={prevSlide} className="slider-button"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
-                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
-                </svg></button>
+                <button onClick={prevSlide} className="slider-button">◀</button>
                 <img src={images[currentSlide]} alt={`Slide ${currentSlide + 1}`} className="slider-image" />
-                <button onClick={nextSlide} className="slider-button"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16">
-                    <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
-                </svg></button>
+                <button onClick={nextSlide} className="slider-button">▶</button>
             </div>
 
             <input
@@ -78,32 +73,49 @@ const MenuPage = () => {
                 className="search-bar"
             />
 
-            <div className="menu-items">
-                {filteredItems.length > 0 ? (
-                    filteredItems.map(item => (
-                        <div key={item.id} className="menu-item">
-                            <img src={item.image} alt={item.name} className="menu-item-image" />
-                            <h2>{item.name}</h2>
-                            <p>{item.description}</p>
+            {error && <p className="error-message">{error}</p>}
 
-                            <select name="" id="">
-                                <option value="one">1</option>
-                                <option value="one">1</option>
-                                <option value="one">1</option>
-                                <option value="one">1</option>
-                            </select>
-                            <select name="" id="">
-                                <option value="half">Half</option>
-                                <option value="full">Full</option>
-                                <option value="one">1</option>
-                                <option value="one">1</option>
-                            </select>
-                            <span className="price">{item.price}</span>
+            <div className="item-list">
+                <div className="card">
+                    {foodCat.length > 0 ? (
+                        foodCat.map((data) => (
+                            <div key={data.id} className="card-item">
+                                <h2>{data.CategoryName}</h2>
+                                <hr />
+                                <div className="food-item-card">
+                                    {foodList.length > 0 ? (
+                                        foodList.filter(item => item.CategoryName === data.CategoryName)
+                                            .map((item) => (
+                                                <div key={item.id} className="menu-item">
+                                                    <img src={item.img} alt={item.name} className="menu-item-image" />
+                                                    <h2>{item.name}</h2>
+                                                    {/* <p>{item.description}</p> */}
+                                                    <select>
+
+                                                        <option value="one">1</option>
+                                                        <option value="two">2</option>
+                                                        <option value="three">3</option>
+                                                    </select>
+                                                    <select>
+                                                        <option value="half">Half</option>
+                                                        <option value="full">Full</option>
+                                                    </select>
+                                                    <span className="price">{item.price}</span>
+                                                </div>
+                                            ))
+                                    ) : (
+                                        <p>No items found for this category.</p>
+                                    )}
+                                </div>
+
+                            </div>
+                        ))
+                    ) : (
+                        <div className="card-item">
+                            <h2>No Categories Available</h2>
                         </div>
-                    ))
-                ) : (
-                    <p>No items found. Please try another search.</p>
-                )}
+                    )}
+                </div>
             </div>
         </div>
     );

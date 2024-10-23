@@ -9,13 +9,16 @@ const connectDB = async () => {
 
         const db = client.db(); // Use the default database from the URI
         const foodItemsCollection = db.collection('fooditems');
-
+        const foodCategoryCollection = db.collection('foodCategory');
         // Fetch data from the collection
         const data = await foodItemsCollection.find().toArray();
+        const catData = await foodCategoryCollection.find().toArray();
         if (data.length === 0) {
             console.log('No data found in fooditems collection');
         } else {
-            // console.log('Fetched data:', data);
+            global.foodList = data;
+            global.foodCatList = catData;
+            //console.log('Data fetched from fooditems collection', global.foodItemsCollection);
         }
 
         // Close the connection

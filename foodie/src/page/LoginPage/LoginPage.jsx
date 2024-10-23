@@ -45,15 +45,15 @@ function LoginComponent() {
                 console.log(localStorage.getItem("authToken"))
                 setSuccess('Login Successful');
                 setLoading(false);
-                // navigate('/menu');
+                setTimeout(() => {
+                    navigate('/', { state: { email } }); // Redirect after 2 seconds
+                }, 2000);
             }
 
 
 
 
-            // setTimeout(() => {
-            //     navigate('/', { state: { email } }); // Redirect after 2 seconds
-            // }, 2000);
+
 
             // Optionally, reset form fields
             //     setEmail('');
