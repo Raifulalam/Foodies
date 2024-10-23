@@ -1,10 +1,16 @@
 .menu-page {
 
     padding: 0px 0px;
-    background-color: #ff5722;
+    background-color: rgba(235, 135, 95, 0.512);
 
 }
 
+.menu-page h1 {
+    font-size: 24px;
+    font-family: sans-serif;
+    font-style: oblique;
+    padding-left: 20px;
+}
 
 .search-bar {
     position: absolute;
@@ -31,6 +37,8 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 20px;
+
+
 }
 
 
@@ -42,6 +50,7 @@
     padding: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s;
+    background-color: rgba(202, 74, 28, 0.967);
 }
 
 .menu-item:hover {

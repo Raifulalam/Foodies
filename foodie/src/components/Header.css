@@ -11,14 +11,19 @@
     position: relative;
 }
 
-.logo h1 {
+.logo h2 {
     margin: 0;
+    font-style: italic;
 }
+
+
 
 .nav {
     display: flex;
     align-items: center;
     transition: transform 0.3s ease;
+    justify-content: space-between;
+
 }
 
 .nav ul {
@@ -32,10 +37,20 @@
 .nav a {
     color: white;
     text-decoration: none;
+    padding: 3px 12px;
+    border-radius: 2px;
 }
 
+
+
 .nav a:hover {
-    text-decoration: underline;
+    background-color: rgba(255, 255, 255, 0.237);
+    padding: 3px 12px;
+}
+
+.nav a:active {
+    transform: scale(0.9);
+    background-color: #ff6f43;
 }
 
 .hamburger {
@@ -83,6 +98,11 @@
 
     }
 
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .nav.open {
         transform: translateY(0);
         display: block;
@@ -105,4 +125,55 @@
         display: flex;
         /* Show hamburger on mobile */
     }
+
+    .login-logout-Btn {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.login-logout-Btn {
+    display: flex;
+    justify-content: space-between;
+    justify-content: center;
+    gap: 18px;
+
+    background-origin: padding-box;
+
+
+}
+
+.login-logout-Btn button {
+    border: none;
+}
+
+.loginBtn {
+    background-color: #ff6f4356;
+    color: white;
+    padding: 5px 12px;
+
+}
+
+.logoutBtn {
+
+    background-color: #ff6f4353;
+    padding: 5px 12px;
+    color: white;
+
+}
+
+.loginBtn:hover {
+    background-color: #ff6f43ec;
+}
+
+.loginBtn:active {
+    background-color: #ff6f43;
+}
+
+.logoutBtn:hover {
+    background-color: #ff6f43ec;
+}
+
+.logoutBtn:active {
+    background-color: #ff6f43;
 }

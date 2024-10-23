@@ -22,7 +22,8 @@ function LoginComponent() {
         event.preventDefault();
         setError('');
         setSuccess('');
-        setLoading(true); // Set loading to true
+        setLoading(true);
+        // Set loading to true
 
         try {
             const response = await fetch("http://localhost:5000/api/loginUser", {
@@ -36,7 +37,9 @@ function LoginComponent() {
             const data = await response.json();
 
             if (!response.ok) {
+                setLoading(false)
                 throw new Error(data.message || 'Something went wrong!');
+
 
             }
             if (data.success) {
@@ -45,8 +48,10 @@ function LoginComponent() {
                 console.log(localStorage.getItem("authToken"))
                 setSuccess('Login Successful');
                 setLoading(false);
+
                 setTimeout(() => {
-                    navigate('/', { state: { email } }); // Redirect after 2 seconds
+                    navigate('/', { state: { email } });
+                    window.location.reload()// Redirect after 2 seconds
                 }, 2000);
             }
 
@@ -61,9 +66,10 @@ function LoginComponent() {
         } catch (err) {
             setError(err.message);
         }
-        // finally {
-        //     setLoading(false); // Reset loading state
-        // }
+        finally {
+            setLoading(false);
+            // Reset loading state
+        }
     };
 
     const handleSignup = () => {

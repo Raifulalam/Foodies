@@ -14,7 +14,7 @@ const Header = () => {
     const handleLogout = () => {
         localStorage.removeItem("authToken");
         setLoggedIn(false);
-        navigate('/login');
+        navigate('/');
     };
 
     useEffect(() => {
@@ -22,32 +22,49 @@ const Header = () => {
         setLoggedIn(!!token);
     }, []);
 
+    const handleLogin = () => {
+        navigate('/login')
+    }
+    const handleSignup = () => {
+        navigate('/signup')
+    }
+
+
     return (
         <header className="header">
             <div className="logo">
-                <h1>HUU Foodie</h1>
+                <h2>
+                    HUU Foodie
+                </h2>
             </div>
 
-            <nav className={`nav ${isMenuOpen ? 'open' : ''}`}>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/menu">Menu</Link></li>
-                    <li><Link to="/about">About Us</Link></li>
-                    <li><Link to="/contact">Contact</Link></li>
-                    {loggedIn && (
-                        <>
-                            <li><Link to="/myorder">My Order</Link></li>
-                            <li><Link to="/cart">Cart</Link></li>
-                            <li><Link to="/logout" onClick={handleLogout}>Logout</Link></li>
-                        </>
-                    )}
-                    {!loggedIn && (
-                        <>
-                            <li><Link to="/login" className="nav-link">Login</Link></li>
-                            <li><Link to="/signup" className="nav-link">Sign Up</Link></li>
-                        </>
-                    )}
-                </ul>
+            <nav className={`nav ${isMenuOpen ? 'open' : ''}`} id='nav-element'>
+                <dvv className="nav-item">
+                    <ul className='nav-item'>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/menu">Menu</Link></li>
+                        {loggedIn && (
+                            <div className='login-logout-Btn'>
+
+                                <li><Link to="/myorder">My Order</Link></li>
+                                <li><Link to="/cart">Cart</Link></li>
+                                <button onClick={handleLogout} className='logoutBtn'>Logout</button>
+                            </div>
+                        )}
+                        {!loggedIn && (
+                            <div className='login-logout-Btn' >
+                                <button className='loginBtn' onClick={handleLogin}>Login</button>
+                                <button className='logoutBtn' onClick={handleSignup}>
+
+                                    Sign Up
+                                </button>
+                            </div>
+                        )}
+                    </ul>
+                </dvv>
+
+
+
             </nav>
 
             <div

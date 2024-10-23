@@ -84,7 +84,7 @@ const MenuPage = () => {
                     {foodCat.length > 0 ? (
                         foodCat.map((data) => (
                             <div key={data.id} className="card-item">
-                                <h2>{data.CategoryName}</h2>
+                                <h1>{data.CategoryName}</h1>
                                 <hr />
                                 <div className="food-item-card">
                                     {filteredItems.length > 0 ? (
