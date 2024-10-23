@@ -9,15 +9,16 @@
 .search-bar {
     position: absolute;
     width: 50%;
-    top: 30%;
+    top: 48%;
     left: 25%;
     padding: 10px;
+    background-color: #18191baf;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    background: #50372c;
-    opacity: 0.5;
+
+    opacity: 0.8;
     border: none;
     color: #fff;
 }

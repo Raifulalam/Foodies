@@ -6,8 +6,11 @@ const MenuPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentSlide, setCurrentSlide] = useState(0);
     const [foodList, setFoodList] = useState([]);
-    const [loading, setLoading] = useState(true); // Loading state
-    const [error, setError] = useState(''); // Error state
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+    const [price, setPrice] = useState('');
+    const [quantity, setQuantity] = useState([]);
+    const [totalPrice, setTotalPrice] = useState('')
 
     const images = [
         'pizza.jpg',
@@ -33,7 +36,7 @@ const MenuPage = () => {
         } catch (err) {
             setError(err.message);
         } finally {
-            setLoading(false); // Set loading to false
+            setLoading(false);
         }
     };
 
@@ -41,6 +44,7 @@ const MenuPage = () => {
         menuItems();
     }, []);
 
+    // Filter items based on the search term
     const filteredItems = foodList.filter(item =>
         item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -54,7 +58,7 @@ const MenuPage = () => {
     };
 
     if (loading) {
-        return <p>Loading...</p>; // Loading message
+        return <p>Loading...</p>;
     }
 
     return (
@@ -83,31 +87,36 @@ const MenuPage = () => {
                                 <h2>{data.CategoryName}</h2>
                                 <hr />
                                 <div className="food-item-card">
-                                    {foodList.length > 0 ? (
-                                        foodList.filter(item => item.CategoryName === data.CategoryName)
+                                    {filteredItems.length > 0 ? (
+                                        filteredItems.filter(item => item.CategoryName === data.CategoryName)
                                             .map((item) => (
                                                 <div key={item.id} className="menu-item">
                                                     <img src={item.img} alt={item.name} className="menu-item-image" />
                                                     <h2>{item.name}</h2>
-                                                    {/* <p>{item.description}</p> */}
-                                                    <select>
 
-                                                        <option value="one">1</option>
-                                                        <option value="two">2</option>
-                                                        <option value="three">3</option>
-                                                    </select>
                                                     <select>
-                                                        <option value="half">Half</option>
-                                                        <option value="full">Full</option>
+                                                        <option value="one" onChange={setQuantity}>1</option>
+                                                        <option value="two" onChange={setQuantity}>2</option>
+                                                        <option value="three" onChange={setQuantity}>3</option>
                                                     </select>
+                                                    {item.options && (
+                                                        <select>
+                                                            {Object.keys(item.options[0]).map((key, index) => (
+                                                                <option key={index} value={key}>
+                                                                    {key}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+                                                    )}
+
                                                     <span className="price">{item.price}</span>
+                                                    <p>{quantity}</p>
                                                 </div>
                                             ))
                                     ) : (
                                         <p>No items found for this category.</p>
                                     )}
                                 </div>
-
                             </div>
                         ))
                     ) : (
